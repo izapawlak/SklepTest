@@ -80,3 +80,14 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+/.idea/encodings.xml
+/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+
+/.idea/vcs.xml
+/target/test-classes/SklepTest.class
+/SklepTest.iml
+/target/SklepTest-1.0-SNAPSHOT.jar
