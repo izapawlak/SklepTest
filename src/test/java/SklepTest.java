@@ -28,16 +28,9 @@ public class SklepTest {
         driver.get("https://skleptest.pl/");
     }
 
-    //Przechwycenie adresu url
-    static String getUrl(){
-        String url = driver.getCurrentUrl();
-        return url;
-    }
-
     //Potwierdzenie wyświetlenia strony głównej
     static void isUrlCorrect(){
-        String url = driver.getCurrentUrl();
-        String actualMainUrl = getUrl();
+        String actualMainUrl = driver.getCurrentUrl();
         assertEquals("https://skleptest.pl/", actualMainUrl);
     }
 
@@ -45,11 +38,9 @@ public class SklepTest {
     static void openAccountTab(){
         WebElement accountTab = driver.findElement(By.className("top-account"));
         accountTab.click();
-        String actualAccountUrl = getUrl();
+        String actualAccountUrl = driver.getCurrentUrl();
         assertEquals("https://skleptest.pl/my-account/", actualAccountUrl);
     }
-
-    //napisać generowanie losowego maila
 
 
     //Rejestracja i test potwierdzający
@@ -61,13 +52,13 @@ public class SklepTest {
 
         //wpisanie wartości w polu password
         WebElement password = driver.findElement(By.id("reg_password"));
-        JavascriptExecutor executor1 = (JavascriptExecutor) driver;
-        executor1.executeScript("arguments[0].value = 'random';", password);
+        //JavascriptExecutor executor1 = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].value = 'random';", password);
 
         //kliknięcie przycisku register
         WebElement registerButton = driver.findElement(By.name("register"));
-        JavascriptExecutor executor2 = (JavascriptExecutor) driver;
-        executor2.executeScript("arguments[0].click()", registerButton);
+        //JavascriptExecutor executor2 = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click()", registerButton);
 
         //asercja
         WebElement myAccountText = driver.findElement(By.xpath("//h1[contains(text(), 'My account')]"));
