@@ -1,6 +1,5 @@
 package tests;
 
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.AccountPage;
@@ -8,15 +7,15 @@ import pages.MainPage;
 import pages.OrdersPage;
 import utils.SetupTests;
 
-import static pages.AccountPage.*;
-import static pages.MainPage.*;
-
 public class FirstTest extends SetupTests {
 
     private MainPage mainPage;
     private AccountPage accountPage;
     private OrdersPage ordersPage;
-    private String testEmail = "random@random.com";
+    private String testRegEmail = "random@random.com";
+    private String testRegPassword = "random";
+    private String testLogUsername = "random@random.com";
+    private String testLogPassword = "random";
 
     @BeforeTest
     public void setup() {
@@ -33,42 +32,41 @@ public class FirstTest extends SetupTests {
     public void registration() {
         mainPage.openAccountTab()
                 .shouldBeOnAccountPage()
-                .typeRegistrationEmail(testEmail) //ctrl+q oraz stosować java doki
-                .typeRegistrationPassword()
+                .typeRegistrationEmail(testRegEmail) //ctrl+q oraz stosować java doki
+                .typeRegistrationPassword(testRegPassword)
                 .clickRegisterBtn()
                 .isAccountTextCorrect();
     }
 
-    @Test //nie zadziała, bo nie będę zalogowana :-)
-    public void noOrdersCheck() {
-
-        accountPage.typeLoginUsername();
-        accountPage.typeLoginPassword();
-        accountPage.clickLoginBtn();
+    @Test
+    public void login(){
         mainPage.openAccountTab()
+                .shouldBeOnAccountPage()
+                .typeLoginUsername(testLogUsername)
+                .typeLoginPassword(testLogPassword)
                 .shouldBeOnAccountPage();
-        ordersPage.areAnyOrders();
+    }
+
+    @Test
+    public void noOrdersCheck() {
+        mainPage.openAccountTab()
+                .typeLoginUsername(testLogUsername)
+                .typeLoginPassword(testLogPassword)
+                .clickLoginBtn()
+                .shouldBeOnAccountPage()
+                .openOrdersTab()
+                .areAnyOrders();
     }
 
     @Test
     public void logOut(){
-        accountPage.logOut();
-        mainPage.isUrlCorrect();
+        mainPage.openAccountTab()
+                .typeLoginUsername(testLogUsername)
+                .typeLoginPassword(testLogPassword)
+                .clickLoginBtn()
+                .logOut()
+                .isUrlCorrect();
     }
 }
-
-
-
-/*    @Test
-    public void uberTest(){
-        openMainPage();
-        isUrlCorrect();
-        openAccountTab();
-        userRegistration();
-        openOrdersTab();
-        logOut();
-        isUrlCorrect();
-    }*/
-
 
 
