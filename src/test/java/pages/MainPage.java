@@ -1,9 +1,7 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 
 import static org.junit.Assert.assertEquals;
@@ -11,27 +9,42 @@ import static org.junit.Assert.assertEquals;
 public class MainPage extends BasePage {
 
 
+    /**
+     * Constructor for the MainPage class.
+     *
+     * @param driver
+     */
     public MainPage(final WebDriver driver) {
         super(driver);
     }
 
-    //Potwierdzenie wyświetlenia strony głównej
+
+
+    @FindBy(className = "top-account")
+    private WebElement topAccount;
+
+
+
+    /**
+     *  * Verifies if the current page URL matches the expected URL ("https://skleptest.pl/").
+     */
     public void isUrlCorrect() {
         driver.getCurrentUrl();
         assertEquals("https://skleptest.pl/", driver.getCurrentUrl());
     }
 
-    //Przejście do Account
-    @FindBy(className = "top-account")
-    private WebElement topAccount;
 
-    public AccountPage openAccountTab() { //dlaczego tutaj używam klasy Account page?
+    /**
+     * Opens the Account tab.
+     *
+     * @return AccountPage
+     */
+    public AccountPage openAccountTab() {
         topAccount.click();
         return new AccountPage(driver);
     }
 }
 
-//napisać metodę AccountPage ze sprawdzeniem
 //metody statyczne nie mogą korzystać z pól niestatycznych
 //ctrl + alt + o -> wywala niepotrzebne importy
 

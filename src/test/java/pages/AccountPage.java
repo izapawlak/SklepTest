@@ -9,95 +9,153 @@ import static org.junit.Assert.assertEquals;
 
 public class AccountPage extends BasePage {
 
-    public AccountPage(WebDriver driver) {
-        super(driver); //super - wywołuje konstruktor klasy nadrzędnej, driver - przekazuje obiekt driver do konstruktora klasy nadrzędnej, który może wtedy użyć obiektu do inicjalizacji swoich pól i przygotowania do dalszej pracy
-    }
-
-    public AccountPage shouldBeOnAccountPage() {
-        String actualAccountUrl = driver.getCurrentUrl();
-        assertEquals("https://skleptest.pl/my-account/", actualAccountUrl);
-        return this;
-    }
-
-    //ODTĄD ROBIŁAM
-    //REJESTRACJA
-    //rejestracja mail
-    @FindBy(id = "reg_email") // @FindBy mają żyć na górze
-    private WebElement registrationEmail;
-
     /**
-     * send keys to registration email field
+     * Constructor for the AccountPage class.
      *
-     * @param email
-     * @return this AccountPage
+     * @param driver
      */
-    public AccountPage typeRegistrationEmail(final String email) {
-        registrationEmail.sendKeys(email);
-        return this;
+    public AccountPage(WebDriver driver) {
+        super(driver);
     }
 
-    //rejestracja hasło
+
+
+//REJESTRACJA
+    @FindBy(id = "reg_email")
+    private WebElement regEmail;
+
     @FindBy(id = "reg_password")
-    private WebElement registrationPassword;
+    private WebElement regPassword;
 
-    public AccountPage typeRegistrationPassword() {
-        registrationPassword.sendKeys("random");
-        return this;
-    }
-
-    //kliknięcie przycisku register
     @FindBy(name = "register")
-    private WebElement registerBtn;
+    private WebElement regBtn;
 
-    public AccountPage clickRegisterBtn() {
-        registerBtn.click();
-        return this;
-    }
-
-    //asercja
     @FindBy(xpath = "//h1[contains(text(), 'My account')]")
     private WebElement myAccountText;
 
-    public void isAccountTextCorrect() {
-        String actualAccountText = myAccountText.getText();
-        assertEquals("my account", actualAccountText.toLowerCase()); //czy mogę to wrzucić w małe litery?
-    }
-
-
-    //LOGOWANIE
-    //Logowanie username
+//LOGOWANIE
     @FindBy(id = "username")
-    private WebElement loginUsername;
+    private WebElement logUsername;
 
-    public void typeLoginUsername() {
-        loginUsername.sendKeys("random@random.com");
-    }
-
-    //Logowanie password
     @FindBy(id = "password")
-    private WebElement loginPassword;
+    private WebElement logPassword;
 
-    public void typeLoginPassword() {
-        loginPassword.sendKeys("random");
-    }
+    @FindBy(name = "login")
+    private WebElement logBtn;
 
-    //kliknięcie przycisku login
-    @FindBy(id = "login")
-    private WebElement loginBtn;
-
-    public void clickLoginBtn() {
-        loginBtn.click();
-    }
-
-
-    //LOG OUT
-    //wylogowanie
+//WYLOGOWANIE
     @FindBy(xpath = "//a[contains(text(), 'Logout')]")
     private WebElement logOutBtn;
 
     @FindBy(xpath = "//a[contains(text(), 'Confirm')]")
     private WebElement confirmLogOut;
 
+//ORDERS TAB
+    @FindBy(xpath = "//a[contains(text(), 'Orders')]")
+    public WebElement ordersTab;
+
+
+
+
+    /**
+     * Verifies that the current page is the user account page.
+     *
+     * @return AccountPage
+     */
+    public AccountPage shouldBeOnAccountPage() {
+        String actualAccountUrl = driver.getCurrentUrl();
+        assertEquals("https://skleptest.pl/my-account/", actualAccountUrl);
+        return this;
+    }
+
+
+//REJESTRACJA
+    /**
+     * Fills the registration email field with the provided email address.
+     *
+     * @param registrationEmail
+     * @return this AccountPage
+     */
+    public AccountPage typeRegistrationEmail(final String registrationEmail) { //nad tym się pochylić :D
+        regEmail.sendKeys(registrationEmail);
+        return this;
+    }
+
+
+    /**
+     * Fills the registration password field with the provided password.
+     *
+     * @param registrationPassword
+     * @return AccountPage
+     */
+    public AccountPage typeRegistrationPassword(final String registrationPassword) {
+        regPassword.sendKeys(registrationPassword);
+        return this;
+    }
+
+
+    /**
+     * Clicks the registration button on the page.
+     *
+     * @return AccountPage
+     */
+    public AccountPage clickRegisterBtn() {
+        regBtn.click();
+        return this;
+    }
+
+
+    /**
+     * Verifies if the displayed account text on the page matches the expected value "my account".
+     */
+    public void isAccountTextCorrect() {
+        String actualAccountText = myAccountText.getText();
+        assertEquals("my account", actualAccountText.toLowerCase());
+    }
+
+
+//LOGOWANIE
+    /**
+     * Fills the login username field with the provided username.
+     *
+     * @param loginUsername
+     * @return AccountPage
+     */
+    public AccountPage typeLoginUsername(final String loginUsername) {
+        logUsername.sendKeys(loginUsername);
+        return this;
+    }
+
+
+    /**
+     * Fills the login password field with the provided password.
+     *
+     * @param loginPassword
+     * @return AccountPage
+     */
+    public AccountPage typeLoginPassword(final String loginPassword) {
+        logPassword.sendKeys(loginPassword);
+        return this;
+    }
+
+
+    /**
+     * Clicks the login button on the page.
+     *
+     * @return AccountPage
+     */
+    public AccountPage clickLoginBtn() {
+        logBtn.click();
+        return this;
+    }
+
+
+//LOG OUT
+    /**
+     * Logs out of the current account page and returns to the main page.
+     *
+     * @return MainPage
+     */
     public MainPage logOut() {
         logOutBtn.click();
         confirmLogOut.click();
@@ -105,11 +163,12 @@ public class AccountPage extends BasePage {
     }
 
 
-    //ORDERS TAB
-    //przejście na orders
-    @FindBy(xpath = "//a[contains(text(), 'Orders')]")
-    public WebElement ordersTab;
-
+//ORDERS TAB
+    /**
+     * Opens the Orders tab.
+     *
+     * @return OrdersPage
+     */
     public OrdersPage openOrdersTab() {
         ordersTab.click();
         return new OrdersPage(driver);
@@ -118,50 +177,8 @@ public class AccountPage extends BasePage {
 
 
 
-/*
-        ZROBIONE:
-        //Przejście do zakładki Account i potwierdzenie
-        public static void openAccountTab() {
-        WebElement accountTab = driver.findElement(By.className("top-account"));
-        accountTab.click();
-        String actualAccountUrl = driver.getCurrentUrl();
-        assertEquals("https://skleptest.pl/my-account/", actualAccountUrl);
-        }
-
-        public static void userRegistration() {
-        //wpisanie wartości w polu email
-        WebElement emailAddress = driver.findElement(By.id("reg_email"));
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].value = 'random@random.com';", emailAddress);
-
-        //wpisanie wartości w polu password
-        WebElement password = driver.findElement(By.id("reg_password"));
-        JavascriptExecutor executor1 = (JavascriptExecutor) driver;
-        executor1.executeScript("arguments[0].value = 'random';", password);
-
-        //kliknięcie przycisku register
-        WebElement registerButton = driver.findElement(By.name("register"));
-        JavascriptExecutor executor2 = (JavascriptExecutor) driver;
-        executor2.executeScript("arguments[0].click()", registerButton);
-
-        //asercja
-        WebElement myAccountText = driver.findElement(By.xpath("//h1[contains(text(), 'My account')]"));
-        String actualAccountText = myAccountText.getText();
-        //System.out.println(actualAccountText);
-        assertEquals("my account", actualAccountText.toLowerCase());
-        }
 
 
-        //Wylogowanie
-        public static void logOut() {
-        WebElement logOut = driver.findElement(By.xpath("//a[contains(text(), 'Logout')]"));
-        JavascriptExecutor executor4 = (JavascriptExecutor) driver;
-        executor4.executeScript("arguments[0].click()", logOut);
 
-        WebElement confirmLogOut = driver.findElement(By.xpath("//a[contains(text(), 'Confirm')]"));
-        JavascriptExecutor executor5 = (JavascriptExecutor) driver;
-        executor4.executeScript("arguments[0].click()", confirmLogOut);
 
-        NIEZROBIONE:
-    }*/
 
