@@ -9,6 +9,7 @@ import pages.MainPage;
 
 public class SetupTests {
 
+    private PropertiesReader reader = new PropertiesReader();
     private static WebDriver driver;
     private String appUrl = "https://skleptest.pl/";
 
@@ -20,7 +21,7 @@ public class SetupTests {
     }
 
     protected MainPage openMainPage(){
-        driver.get(appUrl);
+        driver.get(reader.getAppUrl());
         //napisać asercję
         return new MainPage(driver);
     }
