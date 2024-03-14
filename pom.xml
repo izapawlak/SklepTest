@@ -12,10 +12,7 @@
         <maven.compiler.source>12</maven.compiler.source>
         <maven.compiler.target>12</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <browser>chrome</browser>
-        <appUrl>https://skleptest.pl/</appUrl>
-        <email>random@random.com</email>
-        <password>random</password>
+
     </properties>
 
     <dependencies>
@@ -62,7 +59,7 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>/src/test/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>

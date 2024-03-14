@@ -32,7 +32,7 @@ public class FirstTest extends SetupTests {
     public void registration() {
         mainPage.openAccountTab()
                 .shouldBeOnAccountPage()
-                .typeRegistrationEmail(testRegEmail) //ctrl+q oraz stosować java doki
+                .typeRegistrationEmail(testRegEmail) //ctrl+q
                 .typeRegistrationPassword(testRegPassword)
                 .clickRegisterBtn()
                 .isAccountTextCorrect();

@@ -11,6 +11,8 @@ public class PropertiesReader {
     public PropertiesReader() {
         properties = new Properties();
 
+        //String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+
         try (final InputStream inputStream = PropertiesReader.class.getClassLoader().getResourceAsStream("config.properties")) {
             properties.load(inputStream);
         } catch (IOException e) {
