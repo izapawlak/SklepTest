@@ -24,7 +24,7 @@ public class SetupTests {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-        }else if(browser != null && browser.equals("firefox")){
+        } else if(browser != null && browser.equals("firefox")){
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
             driver.manage().window().maximize();
@@ -32,15 +32,13 @@ public class SetupTests {
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
             driver.manage().window().maximize();
-        } else {
-            System.out.println("nic");
         }
     }
 
 
     protected MainPage openMainPage(){
-        System.out.println(reader);
-        System.out.println(reader.getAppUrl());
+/*      System.out.println(reader);
+        System.out.println(reader.getAppUrl());*/
         driver.get(reader.getAppUrl());
         return new MainPage(driver);
     }
